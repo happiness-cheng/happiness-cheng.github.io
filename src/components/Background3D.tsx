@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -18,9 +18,9 @@ function FloatingSphere({
 
   useFrame((state) => {
     if (!ref.current) return;
-    ref.current.position.y = initialY + Math.sin(state.clock.elapsedTime * speed) * 0.5;
-    ref.current.rotation.x += 0.003;
-    ref.current.rotation.y += 0.005;
+    ref.current.position.y = initialY + Math.sin(state.clock.elapsedTime * speed) * 0.6;
+    ref.current.rotation.x += 0.004;
+    ref.current.rotation.y += 0.006;
   });
 
   return (
@@ -29,15 +29,15 @@ function FloatingSphere({
       <meshStandardMaterial
         color={color}
         transparent
-        opacity={0.6}
-        roughness={0.1}
-        metalness={0.8}
+        opacity={0.7}
+        roughness={0.05}
+        metalness={0.9}
       />
     </mesh>
   );
 }
 
-function FloatingTorus({
+function FloatingRing({
   position,
   color,
   speed,
@@ -52,84 +52,80 @@ function FloatingTorus({
   useFrame((state) => {
     if (!ref.current) return;
     ref.current.position.y = initialY + Math.sin(state.clock.elapsedTime * speed + 1) * 0.8;
-    ref.current.rotation.x = state.clock.elapsedTime * 0.3;
-    ref.current.rotation.z = state.clock.elapsedTime * 0.2;
+    ref.current.rotation.x = state.clock.elapsedTime * 0.4;
+    ref.current.rotation.z = state.clock.elapsedTime * 0.25;
   });
 
   return (
     <mesh ref={ref} position={position}>
-      <torusGeometry args={[0.8, 0.3, 16, 32]} />
+      <torusGeometry args={[1, 0.25, 16, 48]} />
       <meshStandardMaterial
         color={color}
         transparent
-        opacity={0.5}
-        roughness={0.2}
-        metalness={0.6}
+        opacity={0.6}
+        roughness={0.1}
+        metalness={0.8}
       />
     </mesh>
   );
 }
 
-function Stars({ count = 200 }: { count?: number }) {
-  const points = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 40;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20 - 5;
-    }
-    return positions;
-  }, [count]);
-
-  const ref = useRef<THREE.Points>(null);
-
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.01;
-  });
-
-  const geometry = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(points, 3));
-    return geo;
-  }, [points]);
-
-  return (
-    <points ref={ref} geometry={geometry}>
-      <pointsMaterial size={0.05} color="#ffffff" transparent opacity={0.8} sizeAttenuation />
-    </points>
-  );
-}
-
-function CloudGroup({ position }: { position: [number, number, number] }) {
+function Cloud({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
   const ref = useRef<THREE.Group>(null);
   const startX = position[0];
 
   useFrame((state) => {
     if (!ref.current) return;
-    ref.current.position.x = startX + Math.sin(state.clock.elapsedTime * 0.1) * 1.5;
-    ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.15) * 0.3;
+    ref.current.position.x = startX + Math.sin(state.clock.elapsedTime * 0.08) * 2;
+    ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.12) * 0.3;
   });
 
   return (
-    <group ref={ref} position={position}>
+    <group ref={ref} position={position} scale={scale}>
       <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.8, 16, 16]} />
+        <sphereGeometry args={[1, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" transparent opacity={0.85} roughness={1} />
+      </mesh>
+      <mesh position={[0.8, 0.1, 0]}>
+        <sphereGeometry args={[0.7, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" transparent opacity={0.8} roughness={1} />
+      </mesh>
+      <mesh position={[-0.7, -0.1, 0.1]}>
+        <sphereGeometry args={[0.75, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" transparent opacity={0.8} roughness={1} />
+      </mesh>
+      <mesh position={[0.3, 0.4, 0]}>
+        <sphereGeometry args={[0.55, 16, 16]} />
         <meshStandardMaterial color="#ffffff" transparent opacity={0.7} roughness={1} />
       </mesh>
-      <mesh position={[0.6, -0.1, 0]}>
+      <mesh position={[-0.2, 0.35, -0.2]}>
         <sphereGeometry args={[0.6, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" transparent opacity={0.6} roughness={1} />
-      </mesh>
-      <mesh position={[-0.5, -0.15, 0.2]}>
-        <sphereGeometry args={[0.65, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" transparent opacity={0.65} roughness={1} />
-      </mesh>
-      <mesh position={[0.2, 0.3, -0.1]}>
-        <sphereGeometry args={[0.5, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" transparent opacity={0.5} roughness={1} />
+        <meshStandardMaterial color="#ffffff" transparent opacity={0.75} roughness={1} />
       </mesh>
     </group>
+  );
+}
+
+function GlowingOrb({ position, color, speed }: { position: [number, number, number]; color: string; speed: number }) {
+  const ref = useRef<THREE.Mesh>(null);
+  const initialY = position[1];
+
+  useFrame((state) => {
+    if (!ref.current) return;
+    ref.current.position.y = initialY + Math.sin(state.clock.elapsedTime * speed) * 0.4;
+  });
+
+  return (
+    <mesh ref={ref} position={position}>
+      <sphereGeometry args={[0.15, 16, 16]} />
+      <meshStandardMaterial
+        color={color}
+        emissive={color}
+        emissiveIntensity={2}
+        transparent
+        opacity={0.9}
+      />
+    </mesh>
   );
 }
 
@@ -139,36 +135,49 @@ export default function Background3D() {
   useFrame((state) => {
     if (!groupRef.current) return;
     const t = state.clock.elapsedTime;
-    groupRef.current.rotation.y = Math.sin(t * 0.05) * 0.1;
+    groupRef.current.rotation.y = Math.sin(t * 0.03) * 0.05;
   });
 
   return (
     <>
-      {/* Lighting - 新海诚风格的柔和光照 */}
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={1.0} color="#FFD700" />
-      <pointLight position={[-3, 2, 3]} intensity={0.5} color="#FF69B4" />
+      {/* 暖色光照 - 日落感 */}
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[3, 5, 5]} intensity={1.5} color="#FFE4B5" />
+      <pointLight position={[-4, 3, 4]} intensity={0.8} color="#FF8C69" />
+      <pointLight position={[5, -2, 3]} intensity={0.4} color="#FFD700" />
 
       <group ref={groupRef}>
-        {/* 漂浮球体 - 新海诚风色调 */}
-        <FloatingSphere position={[-4, 2, -3]} scale={0.5} color="#87CEEB" speed={0.8} />
-        <FloatingSphere position={[3, -1, -2]} scale={0.35} color="#FFB6C1" speed={1.0} />
-        <FloatingSphere position={[-2, -2, -1]} scale={0.4} color="#FFA07A" speed={0.6} />
-        <FloatingSphere position={[5, 3, -4]} scale={0.6} color="#DDA0DD" speed={0.5} />
-        <FloatingSphere position={[-5, 0, -5]} scale={0.45} color="#B0E0E6" speed={0.7} />
-        <FloatingSphere position={[1, 4, -3]} scale={0.3} color="#FFE4B5" speed={0.9} />
+        {/* 大球体 - 暖色调，高光泽 */}
+        <FloatingSphere position={[-5, 2.5, -4]} scale={0.7} color="#FF6B6B" speed={0.5} />
+        <FloatingSphere position={[4, -1.5, -3]} scale={0.55} color="#FFD93D" speed={0.7} />
+        <FloatingSphere position={[-2, -3, -2]} scale={0.6} color="#FF8C69" speed={0.4} />
+        <FloatingSphere position={[6, 2, -5]} scale={0.8} color="#FFA07A" speed={0.35} />
+        <FloatingSphere position={[-6, -1, -6]} scale={0.5} color="#87CEEB" speed={0.6} />
+        <FloatingSphere position={[1, 3.5, -4]} scale={0.45} color="#FFB6C1" speed={0.55} />
+        <FloatingSphere position={[3, 4, -3]} scale={0.35} color="#FFD700" speed={0.8} />
+        <FloatingSphere position={[-4, 4.5, -5]} scale={0.4} color="#FFA500" speed={0.65} />
 
-        {/* 漂浮环 */}
-        <FloatingTorus position={[2, 1, -2]} color="#FF69B4" speed={0.5} />
-        <FloatingTorus position={[-3, 3, -3]} color="#87CEEB" speed={0.7} />
+        {/* 旋转光环 */}
+        <FloatingRing position={[2, 0, -2]} color="#FFD93D" speed={0.4} />
+        <FloatingRing position={[-3, 2.5, -3]} color="#FF6B6B" speed={0.55} />
+        <FloatingRing position={[5, 3.5, -4]} color="#FF8C69" speed={0.3} />
 
         {/* 云朵 */}
-        <CloudGroup position={[-6, 4, -6]} />
-        <CloudGroup position={[4, 5, -8]} />
-        <CloudGroup position={[0, 3.5, -7]} />
+        <Cloud position={[-7, 4, -8]} scale={1.2} />
+        <Cloud position={[5, 5, -10]} scale={1.0} />
+        <Cloud position={[0, 4.5, -9]} scale={0.9} />
+        <Cloud position={[-3, 6, -12]} scale={1.4} />
+        <Cloud position={[8, 3.5, -7]} scale={0.8} />
 
-        {/* 星星背景 */}
-        <Stars count={300} />
+        {/* 发光小光点 - 飘动的光粒子 */}
+        <GlowingOrb position={[-3, 1, -1]} color="#FFD700" speed={1.2} />
+        <GlowingOrb position={[2, 2, -1.5]} color="#FF6B6B" speed={0.9} />
+        <GlowingOrb position={[0, -1, -1]} color="#FFA500" speed={1.1} />
+        <GlowingOrb position={[-4, -2, -2]} color="#FFD93D" speed={0.8} />
+        <GlowingOrb position={[4, 1, -2]} color="#FFB6C1" speed={1.0} />
+        <GlowingOrb position={[-1, 3, -2]} color="#87CEEB" speed={1.3} />
+        <GlowingOrb position={[3, -2.5, -1.5]} color="#FF8C69" speed={0.7} />
+        <GlowingOrb position={[-2, 0.5, -0.5]} color="#FFD700" speed={1.5} />
       </group>
     </>
   );
