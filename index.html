@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈志程 | Chen Zhicheng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 第 1 屏：开场 -->
+    <section class="screen screen-intro" id="intro">
+        <div class="stars-bg"></div>
+        <div class="intro-content">
+            <div class="avatar-container" id="avatar" role="button" tabindex="0" aria-label="点击了解更多">
+                <div class="avatar-glow"></div>
+                <div class="avatar-img"></div>
+                <div class="click-hint" id="clickHint">点我试试~</div>
+            </div>
+            <div class="speech-bubble hidden" id="speechBubble">
+                <p class="speech-text" id="speechText"></p>
+                <span class="bubble-arrow"></span>
+            </div>
+            <div class="floating-items">
+                <span class="float-item" data-msg="我是广东海洋大学软件工程大二学生~" style="--delay: 0s; --x: -120px; --y: -80px;"></span>
+                <span class="float-item" data-msg="方向：Infra / Streaming + AI" style="--delay: 0.5s; --x: 130px; --y: -60px;"></span>
+                <span class="float-item" data-msg="会 C++、Python、React、FastAPI~" style="--delay: 1s; --x: -100px; --y: 70px;"></span>
+                <span class="float-item" data-msg="有自己的服务器和域名 czcheng.me" style="--delay: 1.5s; --x: 110px; --y: 90px;"></span>
+            </div>
+            <div class="scroll-hint hidden" id="scrollHint">
+                <span>往下滑，探索更多</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第 2 屏：点击冒险区 -->
+    <section class="screen screen-adventure" id="adventure">
+        <h2 class="section-title"> 探索我的世界</h2>
+        <div class="adventure-scene">
+            <div class="click-zone" data-msg="我用 C++ / Boost.Asio 写了一个高并发 TCP 事件采集系统，峰值 17,000+ QPS，内存稳定在 11MB" style="--zone-x: 10%; --zone-y: 20%;">
+                <div class="zone-icon"> </div>
+                <span class="zone-label">电脑</span>
+            </div>
+            <div class="click-zone" data-msg="系统部署在 Azure VM 上，Docker 容器化，有 Prometheus 监控 + 熔断器降级" style="--zone-x: 75%; --zone-y: 15%;">
+                <div class="zone-icon"> ️</div>
+                <span class="zone-label">服务器</span>
+            </div>
+            <div class="click-zone" data-msg="我做了 AI 知识库：React + FastAPI + MySQL + ChromaDB 向量搜索 + ReAct Agent 对话" style="--zone-x: 25%; --zone-y: 55%;">
+                <div class="zone-icon"> </div>
+                <span class="zone-label">知识库</span>
+            </div>
+            <div class="click-zone" data-msg="AI 自动交易系统：同花顺模拟盘 + MiMo API + 飞书实时推送" style="--zone-x: 65%; --zone-y: 60%;">
+                <div class="zone-icon"> </div>
+                <span class="zone-label">AI 交易</span>
+            </div>
+            <div class="click-zone" data-msg="事件流处理引擎：gRPC + Kafka + Redis Streams + ClickHouse Lambda 架构" style="--zone-x: 40%; --zone-y: 35%;">
+                <div class="zone-icon">⚡</div>
+                <span class="zone-label">流引擎</span>
+            </div>
+            <div class="click-zone" data-msg="我的域名 czcheng.me 绑定了 GitHub Pages，你正在看的就是我的作品~" style="--zone-x: 85%; --zone-y: 45%;">
+                <div class="zone-icon"> </div>
+                <span class="zone-label">域名</span>
+            </div>
+        </div>
+        <div class="adventure-bubble hidden" id="adventureBubble">
+            <p id="adventureText"></p>
+        </div>
+    </section>
+
+    <!-- 第 3 屏：项目展示 -->
+    <section class="screen screen-projects" id="projects">
+        <h2 class="section-title">✨ 我的项目</h2>
+        <div class="project-grid">
+            <div class="project-card" data-detail="高并发 TCP 事件采集服务\nC++17 / Boost.Asio / Protobuf / Kafka / ClickHouse / Redis / Prometheus\n峰值 17,535 QPS | 内存 11MB | P99 延迟 8.25ms">
+                <div class="card-emoji"> </div>
+                <h3>event_collector</h3>
+                <p>高并发事件采集 | C++17</p>
+                <span class="card-tag">17,000+ QPS</span>
+            </div>
+            <div class="project-card" data-detail="实时事件流处理引擎\nC++17 / gRPC / Kafka / Redis / ClickHouse / Lambda 架构\n4 阶段质量管道 | 熔断器降级 | 一致性哈希租户路由 | HMAC 签名验证">
+                <div class="card-emoji">⚡</div>
+                <h3>event_stream_engine</h3>
+                <p>流处理引擎 | C++17</p>
+                <span class="card-tag">Lambda 架构</span>
+            </div>
+            <div class="project-card" data-detail="AI 驱动的个人知识库\nReact + FastAPI + MySQL + ChromaDB\n知识图谱可视化 | RAG 对话 | ReAct Agent | 自动链接推荐\n114 个 pytest 测试用例">
+                <div class="card-emoji"> </div>
+                <h3>knowledge-base</h3>
+                <p>AI 知识库 | React + FastAPI</p>
+                <span class="card-tag">RAG + Agent</span>
+            </div>
+            <div class="project-card" data-detail="AI 驱动的股票自动交易系统\n同花顺模拟盘 + MiMo API + 飞书推送\n实时行情分析 | 自动下单 | 风险控制 | 交易日志">
+                <div class="card-emoji"> </div>
+                <h3>ai-trader</h3>
+                <p>AI 自动交易 | Python</p>
+                <span class="card-tag">模拟盘</span>
+            </div>
+        </div>
+        <div class="project-detail hidden" id="projectDetail">
+            <div class="detail-card">
+                <button class="detail-close" id="detailClose">&times;</button>
+                <pre id="detailContent"></pre>
+                <a class="detail-link" id="detailLink" href="#" target="_blank">查看 GitHub →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 第 4 屏：联系方式 -->
+    <section class="screen screen-contact" id="contact">
+        <h2 class="section-title"> 联系我</h2>
+        <div class="contact-grid">
+            <a class="contact-card" href="https://github.com/happiness-cheng" target="_blank" rel="noopener">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </div>
+                <span>GitHub</span>
+            </a>
+            <a class="contact-card" href="mailto:liuguanyi561@gmail.com">
+                <div class="contact-icon"> </div>
+                <span>邮箱</span>
+            </a>
+            <div class="contact-card resume-card" id="resumeCard">
+                <div class="contact-icon"> </div>
+                <span>简历</span>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>Made with  by Chen Zhicheng | 2026</p>
+        </footer>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
