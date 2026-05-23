@@ -3,280 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>陈志成 | 开发者作品集</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>陈志成 | 技术之旅</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-inner">
-            <a href="#" class="logo">陈志成<span class="dot">.</span></a>
-            <div class="nav-links">
-                <a href="#about">关于我</a>
-                <a href="#projects">项目</a>
-                <a href="#education">教育</a>
-                <a href="#skills">技能</a>
-                <a href="#contact">联系</a>
-            </div>
-            <button class="menu-btn" id="menuBtn" aria-label="菜单">
-                <span></span><span></span>
-            </button>
+    <!-- 开始画面 -->
+    <div class="start-screen" id="startScreen">
+        <div class="start-content">
+            <h1> </h1>
+            <h2>陈志成的技术之旅</h2>
+            <p>按 → 键或点击按钮，开着小车探索我的世界</p>
+            <button class="start-btn" id="startBtn">开始旅程</button>
+            <p class="hint">→ / D 前进 | ← / A 后退 | 到达站点自动展示内容</p>
         </div>
-    </nav>
-
-    <!-- 移动端菜单 -->
-    <div class="mobile-menu hidden" id="mobileMenu">
-        <a href="#about">关于我</a>
-        <a href="#projects">项目</a>
-        <a href="#education">教育</a>
-        <a href="#skills">技能</a>
-        <a href="#contact">联系</a>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-text">
-                    <p class="hero-sub">你好，我是</p>
-                    <h1 class="hero-name">陈志成</h1>
-                    <p class="hero-title">Software Developer</p>
-                    <p class="hero-desc">广东海洋大学 · 软件工程 · Infra / Streaming + AI</p>
-                    <div class="hero-actions">
-                        <a href="resume.pdf" class="btn btn-dark" download>下载简历 ↓</a>
-                        <a href="#projects" class="btn btn-outline">查看项目</a>
+    <!-- 世界 -->
+    <div class="world" id="world">
+        <!-- 天空 -->
+        <div class="sky">
+            <div class="cloud c1">☁️</div>
+            <div class="cloud c2">☁️</div>
+            <div class="cloud c3">☁️</div>
+            <div class="sun">☀️</div>
+        </div>
+
+        <!-- 远景山 -->
+        <div class="mountains">
+            <div class="mountain m1"></div>
+            <div class="mountain m2"></div>
+            <div class="mountain m3"></div>
+        </div>
+
+        <!-- 草地 -->
+        <div class="ground"></div>
+
+        <!-- 道路 -->
+        <div class="road" id="road">
+            <div class="road-surface">
+                <div class="road-line"></div>
+            </div>
+            <div class="road-shadow"></div>
+        </div>
+
+        <!-- 小车 -->
+        <div class="car" id="car">
+            <div class="car-body">
+                <div class="car-top"></div>
+                <div class="car-bottom"></div>
+                <div class="car-window"></div>
+                <div class="car-wheel w1"></div>
+                <div class="car-wheel w2"></div>
+                <div class="car-light"></div>
+            </div>
+            <div class="car-shadow"></div>
+        </div>
+
+        <!-- 装饰物 -->
+        <div class="decorations" id="decorations">
+            <div class="deco-tree" style="--x: 100px;"> </div>
+            <div class="deco-tree" style="--x: 450px;"> </div>
+            <div class="deco-tree" style="--x: 750px;"> </div>
+            <div class="deco-tree" style="--x: 1100px;"> </div>
+            <div class="deco-tree" style="--x: 1500px;"> </div>
+            <div class="deco-tree" style="--x: 1900px;"> </div>
+            <div class="deco-tree" style="--x: 2300px;"> </div>
+            <div class="deco-tree" style="--x: 2700px;"> </div>
+            <div class="deco-tree" style="--x: 3100px;"> </div>
+            <div class="deco-tree" style="--x: 3500px;"> </div>
+            <div class="deco-flower" style="--x: 250px;"> </div>
+            <div class="deco-flower" style="--x: 600px;"> </div>
+            <div class="deco-flower" style="--x: 1000px;"> </div>
+            <div class="deco-flower" style="--x: 1700px;"> </div>
+            <div class="deco-flower" style="--x: 2200px;"> </div>
+            <div class="deco-flower" style="--x: 2900px;"> </div>
+            <div class="deco-house" style="--x: 350px;"> </div>
+            <div class="deco-house" style="--x: 1300px;"> </div>
+            <div class="deco-house" style="--x: 2500px;"> </div>
+            <div class="deco-sign" style="--x: 550px;"> </div>
+            <div class="deco-sign" style="--x: 1600px;"> </div>
+        </div>
+
+        <!-- 站点 -->
+        <div class="stops" id="stops">
+            <!-- 站点1：关于我 -->
+            <div class="stop" data-index="0" style="--stop-x: 200px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">关于我</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>关于我</h2>
+                        <div class="popup-about">
+                            <div class="popup-avatar">
+                                <img src="me.jpg" alt="" onerror="this.parentElement.innerHTML='‍💻'">
+                            </div>
+                            <div class="popup-info">
+                                <p class="popup-name">陈志成</p>
+                                <p>广东海洋大学 · 软件工程 · 大二</p>
+                                <p>方向：Infra / Streaming + AI</p>
+                                <p>擅长 C++ 高并发系统，有完整全链路项目经验。能独立从代码到云端部署。</p>
+                                <div class="popup-stats">
+                                    <div class="ps"><strong>4</strong><span>项目</span></div>
+                                    <div class="ps"><strong>17K+</strong><span>QPS</span></div>
+                                    <div class="ps"><strong>114</strong><span>测试</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-avatar-wrap">
-                    <div class="hero-avatar-3d">
-                        <img src="me.jpg" alt="陈志成" onerror="this.parentElement.classList.add('fallback');this.remove()">
+            </div>
+
+            <!-- 站点2：事件采集 -->
+            <div class="stop" data-index="1" style="--stop-x: 700px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">事件采集</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>event_collector</h2>
+                        <p class="popup-desc">高并发 TCP 事件采集服务</p>
+                        <div class="popup-tags">
+                            <span>C++17</span><span>Boost.Asio</span><span>Protobuf</span><span>Kafka</span><span>ClickHouse</span>
+                        </div>
+                        <div class="popup-metrics">
+                            <div class="pm"><strong>17,535</strong><span>峰值 QPS</span></div>
+                            <div class="pm"><strong>11MB</strong><span>内存</span></div>
+                            <div class="pm"><strong>8.25ms</strong><span>P99 延迟</span></div>
+                        </div>
+                        <a href="https://github.com/happiness-cheng/event_collector" target="_blank" class="popup-link">查看 GitHub →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点3：流处理 -->
+            <div class="stop" data-index="2" style="--stop-x: 1200px;">
+                <div class="stop-flag">⚡</div>
+                <div class="stop-label">流处理</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>event_stream_engine</h2>
+                        <p class="popup-desc">实时事件流处理引擎</p>
+                        <div class="popup-tags">
+                            <span>C++17</span><span>gRPC</span><span>Lambda 架构</span><span>熔断器</span><span>HMAC</span>
+                        </div>
+                        <div class="popup-metrics">
+                            <div class="pm"><strong>4 阶段</strong><span>质量管道</span></div>
+                            <div class="pm"><strong>热/冷</strong><span>双路径</span></div>
+                            <div class="pm"><strong>熔断器</strong><span>自动降级</span></div>
+                        </div>
+                        <a href="https://github.com/happiness-cheng/event_stream_engine" target="_blank" class="popup-link">查看 GitHub →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点4：知识库 -->
+            <div class="stop" data-index="3" style="--stop-x: 1700px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">知识库</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>knowledge-base</h2>
+                        <p class="popup-desc">AI 驱动的个人知识库</p>
+                        <div class="popup-tags">
+                            <span>React</span><span>FastAPI</span><span>MySQL</span><span>ChromaDB</span><span>RAG</span><span>Agent</span>
+                        </div>
+                        <div class="popup-metrics">
+                            <div class="pm"><strong>114</strong><span>测试用例</span></div>
+                            <div class="pm"><strong>29</strong><span>API 接口</span></div>
+                            <div class="pm"><strong>向量搜索</strong><span>RAG 对话</span></div>
+                        </div>
+                        <a href="https://github.com/happiness-cheng/knowledge-base" target="_blank" class="popup-link">查看 GitHub →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点5：AI交易 -->
+            <div class="stop" data-index="4" style="--stop-x: 2200px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">AI 交易</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>ai-trader</h2>
+                        <p class="popup-desc">AI 自动交易系统</p>
+                        <div class="popup-tags">
+                            <span>Python</span><span>同花顺模拟盘</span><span>MiMo API</span><span>飞书推送</span>
+                        </div>
+                        <div class="popup-metrics">
+                            <div class="pm"><strong>自动</strong><span>下单交易</span></div>
+                            <div class="pm"><strong>实时</strong><span>飞书推送</span></div>
+                            <div class="pm"><strong>AI</strong><span>行情分析</span></div>
+                        </div>
+                        <a href="https://github.com/happiness-cheng/ai-trader" target="_blank" class="popup-link">查看 GitHub →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点6：技术栈 -->
+            <div class="stop" data-index="5" style="--stop-x: 2700px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">技术栈</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>技术栈</h2>
+                        <div class="skills-section">
+                            <div class="skill-row">
+                                <h3>语言</h3>
+                                <div class="skill-badges">
+                                    <span class="sb sb-cpp">C++17</span>
+                                    <span class="sb sb-py">Python</span>
+                                    <span class="sb sb-js">JavaScript</span>
+                                    <span class="sb sb-sql">SQL</span>
+                                </div>
+                            </div>
+                            <div class="skill-row">
+                                <h3>框架</h3>
+                                <div class="skill-badges">
+                                    <span class="sb">React</span>
+                                    <span class="sb">FastAPI</span>
+                                    <span class="sb">Boost.Asio</span>
+                                    <span class="sb">gRPC</span>
+                                </div>
+                            </div>
+                            <div class="skill-row">
+                                <h3>基础设施</h3>
+                                <div class="skill-badges">
+                                    <span class="sb">Docker</span>
+                                    <span class="sb">Azure</span>
+                                    <span class="sb">Linux</span>
+                                    <span class="sb">Git</span>
+                                </div>
+                            </div>
+                            <div class="skill-row">
+                                <h3>数据</h3>
+                                <div class="skill-badges">
+                                    <span class="sb">MySQL</span>
+                                    <span class="sb">Redis</span>
+                                    <span class="sb">Kafka</span>
+                                    <span class="sb">ClickHouse</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点7：教育 -->
+            <div class="stop" data-index="6" style="--stop-x: 3200px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">教育</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>教育背景</h2>
+                        <div class="edu-block">
+                            <div class="edu-bar"></div>
+                            <div>
+                                <span class="edu-year">2024 — 2028</span>
+                                <h3>广东海洋大学</h3>
+                                <p>软件工程 · 本科</p>
+                                <p class="edu-sub">方向：Infra / Streaming + AI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 站点8：联系 -->
+            <div class="stop" data-index="7" style="--stop-x: 3700px;">
+                <div class="stop-flag"> </div>
+                <div class="stop-label">联系我</div>
+                <div class="popup hidden">
+                    <div class="popup-card">
+                        <button class="popup-close">&times;</button>
+                        <h2>联系我</h2>
+                        <div class="contact-links">
+                            <a href="https://github.com/happiness-cheng" target="_blank" class="cl">GitHub →</a>
+                            <a href="mailto:liuguanyi561@gmail.com" class="cl">✉️ 邮箱 →</a>
+                            <a href="resume.pdf" download class="cl">  下载简历 →</a>
+                        </div>
+                        <div class="finale">
+                            <p>感谢走完这段旅程！ </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- 关于我 -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-heading">关于我</h2>
-            <div class="about-grid">
-                <div class="about-photo-3d">
-                    <div class="card-3d">
-                        <img src="me.jpg" alt="陈志成" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 260%22><rect fill=%22%23f5f5f5%22 width=%22200%22 height=%22260%22 rx=%2216%22/><text x=%2250%%22 y=%2245%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22>‍💻</text><text x=%2250%%22 y=%2270%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23999%22>Chen Zhicheng</text></svg>'">
-                    </div>
-                    <div class="about-social-row">
-                        <a href="https://github.com/happiness-cheng" target="_blank" class="social-btn" title="GitHub">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        </a>
-                        <a href="mailto:liuguanyi561@gmail.com" class="social-btn" title="邮箱">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="about-content">
-                    <p>广东海洋大学软件工程大二学生，方向 Infra / Streaming + AI。</p>
-                    <p>擅长 C++ 高并发系统开发，有完整的事件采集→流处理→存储全链路项目经验。能独立完成从代码到云端部署的全流程，拥有个人域名和云服务器。</p>
-                    <p>同时对 AI 应用开发有兴趣，做过 AI 知识库（RAG + Agent）、AI 自动交易系统。</p>
-                    <div class="stats-row">
-                        <div class="stat-card-3d">
-                            <span class="stat-num">4</span>
-                            <span class="stat-label">个项目</span>
-                        </div>
-                        <div class="stat-card-3d">
-                            <span class="stat-num">17K+</span>
-                            <span class="stat-label">峰值 QPS</span>
-                        </div>
-                        <div class="stat-card-3d">
-                            <span class="stat-num">114</span>
-                            <span class="stat-label">测试用例</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- 终点旗 -->
+        <div class="finish-flag" style="--stop-x: 4000px;"> </div>
+    </div>
 
-    <!-- 项目 -->
-    <section class="section section-grey" id="projects">
-        <div class="container">
-            <h2 class="section-heading">我的项目</h2>
-            <div class="project-grid">
+    <!-- 进度条 -->
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
 
-                <a class="project-card-3d" href="https://github.com/happiness-cheng/event_collector" target="_blank">
-                    <div class="project-thumb" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
-                        <span class="project-icon"> </span>
-                    </div>
-                    <div class="project-body">
-                        <h3>event_collector</h3>
-                        <p>高并发 TCP 事件采集服务 — C++17 / Boost.Asio / Protobuf / Kafka / ClickHouse / Redis</p>
-                        <div class="project-tags">
-                            <span>C++17</span><span>高并发</span><span>17K+ QPS</span>
-                        </div>
-                        <div class="project-meta">
-                            <span>⭐ 17,535 峰值 QPS</span>
-                            <span>  11MB 内存</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="project-card-3d" href="https://github.com/happiness-cheng/event_stream_engine" target="_blank">
-                    <div class="project-thumb" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-                        <span class="project-icon">⚡</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>event_stream_engine</h3>
-                        <p>实时事件流处理引擎 — C++17 / gRPC / Kafka / Redis Streams / ClickHouse Lambda 架构</p>
-                        <div class="project-tags">
-                            <span>gRPC</span><span>Lambda 架构</span><span>熔断器</span>
-                        </div>
-                        <div class="project-meta">
-                            <span>⚡ 4 阶段质量管道</span>
-                            <span>  HMAC 签名</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="project-card-3d" href="https://github.com/happiness-cheng/knowledge-base" target="_blank">
-                    <div class="project-thumb" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-                        <span class="project-icon"> </span>
-                    </div>
-                    <div class="project-body">
-                        <h3>knowledge-base</h3>
-                        <p>AI 驱动的个人知识库 — React + FastAPI + MySQL + ChromaDB 向量搜索 + ReAct Agent</p>
-                        <div class="project-tags">
-                            <span>React</span><span>FastAPI</span><span>RAG</span><span>Agent</span>
-                        </div>
-                        <div class="project-meta">
-                            <span>  114 测试</span>
-                            <span>  29 个 API</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="project-card-3d" href="https://github.com/happiness-cheng/ai-trader" target="_blank">
-                    <div class="project-thumb" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-                        <span class="project-icon"> </span>
-                    </div>
-                    <div class="project-body">
-                        <h3>ai-trader</h3>
-                        <p>AI 自动交易系统 — 同花顺模拟盘 + MiMo API + 飞书实时推送</p>
-                        <div class="project-tags">
-                            <span>Python</span><span>AI</span><span>自动交易</span>
-                        </div>
-                        <div class="project-meta">
-                            <span>  自动下单</span>
-                            <span>  飞书推送</span>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- GitHub 贡献 -->
-    <section class="section" id="github">
-        <div class="container">
-            <h2 class="section-heading">GitHub 贡献</h2>
-            <div class="github-card-3d">
-                <div class="github-header">
-                    <img src="https://github.com/happiness-cheng.png" alt="" class="github-avatar" onerror="this.style.display='none'">
-                    <div>
-                        <h3>happiness-cheng</h3>
-                        <a href="https://github.com/happiness-cheng" target="_blank" class="github-link">查看主页 →</a>
-                    </div>
-                </div>
-                <img src="https://ghchart.rshah.org/happiness-cheng" alt="GitHub 贡献图" class="github-chart" onerror="this.style.display='none'">
-            </div>
-        </div>
-    </section>
-
-    <!-- 教育 -->
-    <section class="section section-grey" id="education">
-        <div class="container">
-            <h2 class="section-heading">教育背景</h2>
-            <div class="edu-card-3d">
-                <div class="edu-timeline-bar"></div>
-                <div class="edu-info">
-                    <span class="edu-year">2024 — 2028</span>
-                    <h3>广东海洋大学</h3>
-                    <p>软件工程 · 本科</p>
-                    <p class="edu-detail">方向：Infra / Streaming + AI</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 技能 -->
-    <section class="section" id="skills">
-        <div class="container">
-            <h2 class="section-heading">技术栈</h2>
-            <div class="skills-grid">
-                <div class="skill-card-3d" style="--accent: #00599C;">
-                    <div class="skill-icon">⚡</div>
-                    <span>C++17</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #3776AB;">
-                    <div class="skill-icon"> </div>
-                    <span>Python</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #61DAFB;">
-                    <div class="skill-icon">⚛️</div>
-                    <span>React</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #009688;">
-                    <div class="skill-icon"> </div>
-                    <span>FastAPI</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #2496ED;">
-                    <div class="skill-icon"> </div>
-                    <span>Docker</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #336791;">
-                    <div class="skill-icon"> ️</div>
-                    <span>MySQL</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #DC382D;">
-                    <div class="skill-icon"> </div>
-                    <span>Redis</span>
-                </div>
-                <div class="skill-card-3d" style="--accent: #F05032;">
-                    <div class="skill-icon"> </div>
-                    <span>Git</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 联系 -->
-    <section class="section section-grey" id="contact">
-        <div class="container">
-            <h2 class="section-heading">联系我</h2>
-            <div class="contact-grid">
-                <a class="contact-card-3d" href="https://github.com/happiness-cheng" target="_blank">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    <span>GitHub</span>
-                </a>
-                <a class="contact-card-3d" href="mailto:liuguanyi561@gmail.com">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    <span>邮箱</span>
-                </a>
-                <a class="contact-card-3d" href="resume.pdf" download>
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
-                    <span>下载简历</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 底部 -->
-    <footer class="footer">
-        <p>© 2026 陈志成 · Made with ❤️</p>
-    </footer>
+    <!-- 移动端控制 -->
+    <div class="mobile-btns">
+        <button class="mbtn" id="btnL">←</button>
+        <button class="mbtn" id="btnR">→</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
