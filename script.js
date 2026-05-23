@@ -75,7 +75,7 @@ function loop() {
     let off = S.x - sw * 0.3;
     off = Math.max(0, Math.min(S.worldW - sw, off));
 
-    road.style.transform = `perspective(500px) rotateX(8deg) translateX(-${off}px)`;
+    road.style.transform = `translateX(-${off}px)`;
     deco.style.transform = `translateX(-${off}px)`;
     stopsEl.style.transform = `translateX(-${off}px)`;
 
