@@ -5,74 +5,50 @@ import { Code, Mail, ExternalLink, Download } from 'lucide-react';
 function App() {
   return (
     <div className="relative min-h-screen">
-      {/* 你的名字 暖色天空背景 */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#FF7B54] via-[#FFB26B] via-[#FFD5A0] via-[#87CEEB] to-[#4A90D9]" />
+      {/* 天空背景 - 多层渐变模拟大气透视 */}
+      <div className="fixed inset-0 z-0 sky-bg" />
 
-      {/* CSS 动画层 - 增强版粒子场 */}
+      {/* 上帝光 + 镜头耀斑层 */}
       <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
-        {/* 大球体层 - 背景深度 */}
-        <FloatBubble className="w-28 h-28 bg-[#FF6B6B]/30 top-[5%] left-[3%]" duration={8} delay={0} />
-        <FloatBubble className="w-24 h-24 bg-[#FFD93D]/25 top-[20%] right-[5%]" duration={10} delay={1} />
-        <FloatBubble className="w-32 h-32 bg-[#FF8C69]/20 top-[45%] left-[10%]" duration={9} delay={0.5} />
-        <FloatBubble className="w-20 h-20 bg-[#FFA07A]/30 top-[60%] right-[15%]" duration={11} delay={2} />
-        <FloatBubble className="w-26 h-26 bg-[#87CEEB]/25 top-[75%] left-[40%]" duration={7} delay={3} />
-        <FloatBubble className="w-22 h-22 bg-[#FFB6C1]/20 top-[88%] right-[25%]" duration={12} delay={1.5} />
+        {/* 太阳光晕 */}
+        <div className="sun-orb" />
+        {/* 上帝光束 */}
+        <div className="god-ray ray-1" />
+        <div className="god-ray ray-2" />
+        <div className="god-ray ray-3" />
+        <div className="god-ray ray-4" />
+        <div className="god-ray ray-5" />
+        {/* 大气薄雾 */}
+        <div className="atmo-haze" />
+      </div>
 
-        {/* 中球体层 - 中间层 */}
-        <FloatBubble className="w-16 h-16 bg-[#FF6B6B]/50 top-[10%] left-[20%]" duration={6} delay={0.3} />
-        <FloatBubble className="w-14 h-14 bg-[#FFD93D]/45 top-[15%] right-[25%]" duration={7} delay={1.2} />
-        <FloatBubble className="w-18 h-18 bg-[#FF8C69]/40 top-[30%] left-[55%]" duration={5.5} delay={0.8} />
-        <FloatBubble className="w-12 h-12 bg-[#FFA07A]/50 top-[35%] left-[75%]" duration={8} delay={2.5} />
-        <FloatBubble className="w-16 h-16 bg-[#FFB6C1]/45 top-[50%] left-[5%]" duration={6.5} delay={1.8} />
-        <FloatBubble className="w-14 h-14 bg-[#FFD700]/50 top-[55%] right-[8%]" duration={7.5} delay={0.6} />
-        <FloatBubble className="w-12 h-12 bg-[#87CEEB]/40 top-[65%] left-[60%]" duration={5} delay={3.5} />
-        <FloatBubble className="w-16 h-16 bg-[#FFA500]/45 top-[70%] left-[25%]" duration={6} delay={2} />
-        <FloatBubble className="w-10 h-10 bg-[#FF6B6B]/50 top-[80%] right-[35%]" duration={8.5} delay={1} />
-        <FloatBubble className="w-14 h-14 bg-[#FFD93D]/40 top-[90%] left-[70%]" duration={7} delay={2.8} />
+      {/* 散景粒子层 - 有景深的动漫风光斑 */}
+      <div className="fixed inset-0 z-[2] pointer-events-none overflow-hidden">
+        {/* 远景散景（小、模糊、低不透明度） */}
+        <BokehCircle size={12} color="#FFD5A0" x="15%" y="20%" blur={6} opacity={0.25} duration={9} delay={0} />
+        <BokehCircle size={8} color="#FFE4B5" x="70%" y="15%" blur={5} opacity={0.2} duration={11} delay={2} />
+        <BokehCircle size={10} color="#FFB6C1" x="45%" y="35%" blur={7} opacity={0.22} duration={10} delay={1} />
+        <BokehCircle size={14} color="#FFD93D" x="85%" y="40%" blur={8} opacity={0.18} duration={12} delay={3} />
+        <BokehCircle size={6} color="#FFA07A" x="25%" y="55%" blur={4} opacity={0.2} duration={8} delay={0.5} />
+        <BokehCircle size={10} color="#87CEEB" x="60%" y="60%" blur={6} opacity={0.15} duration={13} delay={4} />
+        <BokehCircle size={8} color="#FFD5A0" x="10%" y="75%" blur={5} opacity={0.2} duration={9} delay={1.5} />
+        <BokehCircle size={12} color="#FFB6C1" x="80%" y="80%" blur={7} opacity={0.18} duration={11} delay={2.5} />
 
-        {/* 小球体层 - 前景细节 */}
-        <FloatBubble className="w-8 h-8 bg-[#FF6B6B]/60 top-[8%] left-[40%]" duration={5} delay={0.2} />
-        <FloatBubble className="w-6 h-6 bg-[#FFD93D]/55 top-[12%] right-[40%]" duration={4} delay={1.5} />
-        <FloatBubble className="w-10 h-10 bg-[#FF8C69]/50 top-[22%] left-[85%]" duration={6} delay={0.7} />
-        <FloatBubble className="w-7 h-7 bg-[#FFB6C1]/55 top-[28%] left-[30%]" duration={4.5} delay={2.2} />
-        <FloatBubble className="w-8 h-8 bg-[#FFD700]/60 top-[42%] right-[30%]" duration={5.5} delay={1} />
-        <FloatBubble className="w-6 h-6 bg-[#FFA500]/55 top-[52%] left-[50%]" duration={4} delay={3} />
-        <FloatBubble className="w-9 h-9 bg-[#87CEEB]/50 top-[58%] left-[15%]" duration={5} delay={0.5} />
-        <FloatBubble className="w-7 h-7 bg-[#FF6B6B]/55 top-[68%] right-[45%]" duration={6} delay={2.5} />
-        <FloatBubble className="w-8 h-8 bg-[#FFD93D]/50 top-[78%] left-[80%]" duration={4.5} delay={1.8} />
-        <FloatBubble className="w-6 h-6 bg-[#FFB6C1]/60 top-[85%] left-[45%]" duration={5.5} delay={3.2} />
+        {/* 中景散景（中等、半模糊） */}
+        <BokehCircle size={20} color="#FF6B6B" x="8%" y="30%" blur={4} opacity={0.3} duration={7} delay={0} />
+        <BokehCircle size={16} color="#FFD93D" x="55%" y="25%" blur={3} opacity={0.35} duration={8} delay={1} />
+        <BokehCircle size={22} color="#FF8C69" x="75%" y="50%" blur={5} opacity={0.28} duration={6} delay={0.5} />
+        <BokehCircle size={18} color="#FFA500" x="30%" y="70%" blur={3} opacity={0.32} duration={9} delay={2} />
+        <BokehCircle size={14} color="#FFB6C1" x="90%" y="65%" blur={4} opacity={0.25} duration={10} delay={3} />
+        <BokehCircle size={20} color="#FFD700" x="40%" y="85%" blur={4} opacity={0.3} duration={7.5} delay={1.5} />
 
-        {/* 发光光点 - 密集版 */}
-        <GlowDot className="w-3 h-3 bg-[#FFD700] top-[6%] left-[15%]" duration={3} delay={0} />
-        <GlowDot className="w-2 h-2 bg-[#FF6B6B] top-[10%] right-[20%]" duration={4} delay={0.5} />
-        <GlowDot className="w-3 h-3 bg-[#FFA500] top-[14%] left-[65%]" duration={3.5} delay={1} />
-        <GlowDot className="w-2 h-2 bg-[#FFD93D] top-[18%] left-[35%]" duration={4.5} delay={1.5} />
-        <GlowDot className="w-3 h-3 bg-[#FFB6C1] top-[22%] right-[10%]" duration={3} delay={2} />
-        <GlowDot className="w-2 h-2 bg-[#87CEEB] top-[26%] left-[80%]" duration={3.8} delay={0.8} />
-        <GlowDot className="w-3 h-3 bg-[#FF8C69] top-[30%] left-[45%]" duration={4.2} delay={1.3} />
-        <GlowDot className="w-2 h-2 bg-[#FFD700] top-[34%] right-[50%]" duration={3.2} delay={2.5} />
-        <GlowDot className="w-3 h-3 bg-[#FF6B6B] top-[38%] left-[10%]" duration={3.6} delay={0.3} />
-        <GlowDot className="w-2 h-2 bg-[#FFA500] top-[42%] right-[35%]" duration={4} delay={1.8} />
-        <GlowDot className="w-3 h-3 bg-[#FFD93D] top-[46%] left-[70%]" duration={3.4} delay={0.6} />
-        <GlowDot className="w-2 h-2 bg-[#FFB6C1] top-[50%] left-[25%]" duration={4.3} delay={2.1} />
-        <GlowDot className="w-3 h-3 bg-[#FFD700] top-[54%] right-[15%]" duration={3.1} delay={1.1} />
-        <GlowDot className="w-2 h-2 bg-[#FF6B6B] top-[58%] left-[55%]" duration={3.9} delay={0.9} />
-        <GlowDot className="w-3 h-3 bg-[#87CEEB] top-[62%] left-[5%]" duration={3.3} delay={2.8} />
-        <GlowDot className="w-2 h-2 bg-[#FFA500] top-[66%] right-[25%]" duration={4.1} delay={0.4} />
-        <GlowDot className="w-3 h-3 bg-[#FFD93D] top-[70%] left-[40%]" duration={3.7} delay={1.6} />
-        <GlowDot className="w-2 h-2 bg-[#FFB6C1] top-[74%] left-[75%]" duration={4.4} delay={2.3} />
-        <GlowDot className="w-3 h-3 bg-[#FF6B6B] top-[78%] right-[5%]" duration={3} delay={0.7} />
-        <GlowDot className="w-2 h-2 bg-[#FFD700] top-[82%] left-[30%]" duration={3.5} delay={1.9} />
-        <GlowDot className="w-3 h-3 bg-[#FF8C69] top-[86%] left-[60%]" duration={4} delay={2.6} />
-        <GlowDot className="w-2 h-2 bg-[#FFA500] top-[90%] right-[40%]" duration={3.2} delay={0.2} />
-        <GlowDot className="w-3 h-3 bg-[#FFB6C1] top-[94%] left-[20%]" duration={3.8} delay={1.4} />
-
-        {/* 云朵 */}
-        <CloudShape className="top-[5%] left-[2%]" scale={1.2} duration={25} />
-        <CloudShape className="top-[8%] right-[5%]" scale={1.0} duration={30} delay={5} />
-        <CloudShape className="top-[3%] left-[40%]" scale={0.8} duration={28} delay={10} />
-        <CloudShape className="top-[12%] left-[70%]" scale={1.1} duration={22} delay={3} />
-        <CloudShape className="top-[6%] left-[25%]" scale={0.7} duration={35} delay={8} />
+        {/* 近景散景（大、清晰、高不透明度） */}
+        <BokehCircle size={30} color="#FF6B6B" x="2%" y="10%" blur={2} opacity={0.35} duration={6} delay={0} />
+        <BokehCircle size={26} color="#FFD93D" x="92%" y="20%" blur={1} opacity={0.4} duration={5} delay={1} />
+        <BokehCircle size={35} color="#FF8C69" x="50%" y="5%" blur={3} opacity={0.3} duration={7} delay={2} />
+        <BokehCircle size={24} color="#FFA07A" x="15%" y="90%" blur={1} opacity={0.38} duration={5.5} delay={0.5} />
+        <BokehCircle size={28} color="#FFB6C1" x="88%" y="88%" blur={2} opacity={0.35} duration={6.5} delay={1.5} />
+        <BokehCircle size={20} color="#FFD700" x="65%" y="92%" blur={1} opacity={0.4} duration={4.5} delay={3} />
       </div>
 
       {/* 内容层 */}
@@ -300,49 +276,29 @@ function App() {
   );
 }
 
-/* ─── CSS 动画组件 ─── */
-
-function FloatBubble({ className, duration = 6, delay = 0 }: { className: string; duration?: number; delay?: number }) {
+/* ─── 散景圆 - 模拟景深效果 ─── */
+function BokehCircle({
+  size, color, x, y, blur, opacity, duration, delay,
+}: {
+  size: number; color: string; x: string; y: string;
+  blur: number; opacity: number; duration: number; delay: number;
+}) {
   return (
     <div
-      className={`absolute rounded-full ${className}`}
+      className="absolute rounded-full bokeh-drift"
       style={{
-        animation: `floatBubble ${duration}s ease-in-out ${delay}s infinite`,
-        filter: 'blur(1px)',
-        willChange: 'transform',
-      }}
-    />
-  );
-}
-
-function GlowDot({ className, duration = 3, delay = 0 }: { className: string; duration?: number; delay?: number }) {
-  return (
-    <div
-      className={`absolute rounded-full shadow-[0_0_12px_4px_currentColor] ${className}`}
-      style={{
-        animation: `glowFloat ${duration}s ease-in-out ${delay}s infinite`,
+        width: size,
+        height: size,
+        left: x,
+        top: y,
+        backgroundColor: color,
+        filter: `blur(${blur}px)`,
+        opacity,
+        animation: `bokehDrift ${duration}s ease-in-out ${delay}s infinite`,
+        boxShadow: `0 0 ${size * 0.8}px ${size * 0.3}px ${color}`,
         willChange: 'transform, opacity',
       }}
     />
-  );
-}
-
-function CloudShape({ className, scale = 1, duration = 25, delay = 0 }: { className: string; scale?: number; duration?: number; delay?: number }) {
-  return (
-    <div
-      className={`absolute ${className}`}
-      style={{
-        transform: `scale(${scale})`,
-        animation: `cloudDrift ${duration}s linear ${delay}s infinite`,
-      }}
-    >
-      <div className="relative">
-        <div className="w-24 h-16 bg-white/70 rounded-full absolute" />
-        <div className="w-16 h-12 bg-white/60 rounded-full absolute left-14 top-1" />
-        <div className="w-18 h-14 bg-white/65 rounded-full absolute -left-4 top-2" />
-        <div className="w-12 h-10 bg-white/50 rounded-full absolute left-6 -top-3" />
-      </div>
-    </div>
   );
 }
 
