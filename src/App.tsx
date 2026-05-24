@@ -12,7 +12,7 @@ function App() {
 
       {/* 3D 背景层 */}
       <div className="fixed inset-0 z-[1] pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
           <Suspense fallback={null}>
             <Background3D />
           </Suspense>
