@@ -1,8 +1,5 @@
-import { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 import { Code, Mail, ExternalLink, Download } from 'lucide-react';
-import Background3D from './components/Background3D';
 
 function App() {
   return (
@@ -10,13 +7,44 @@ function App() {
       {/* 你的名字 暖色天空背景 */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-[#FF7B54] via-[#FFB26B] via-[#FFD5A0] via-[#87CEEB] to-[#4A90D9]" />
 
-      {/* 3D 背景层 */}
-      <div className="fixed inset-0 z-[1] pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <Suspense fallback={null}>
-            <Background3D />
-          </Suspense>
-        </Canvas>
+      {/* CSS 动画层 - 铺满整个视口 */}
+      <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
+        {/* 漂浮球体 */}
+        <FloatBubble className="w-20 h-20 bg-[#FF6B6B]/60 top-[10%] left-[5%]" duration={6} delay={0} />
+        <FloatBubble className="w-16 h-16 bg-[#FFD93D]/50 top-[15%] right-[10%]" duration={8} delay={1} />
+        <FloatBubble className="w-24 h-24 bg-[#FF8C69]/40 top-[40%] left-[15%]" duration={7} delay={0.5} />
+        <FloatBubble className="w-14 h-14 bg-[#FFA07A]/50 top-[50%] right-[20%]" duration={9} delay={2} />
+        <FloatBubble className="w-12 h-12 bg-[#87CEEB]/40 top-[25%] left-[60%]" duration={6.5} delay={1.5} />
+        <FloatBubble className="w-18 h-18 bg-[#FFB6C1]/50 top-[65%] left-[8%]" duration={7.5} delay={0.8} />
+        <FloatBubble className="w-10 h-10 bg-[#FFD700]/60 top-[70%] right-[15%]" duration={5.5} delay={3} />
+        <FloatBubble className="w-16 h-16 bg-[#FFA500]/40 top-[80%] left-[50%]" duration={8.5} delay={1.2} />
+        <FloatBubble className="w-14 h-14 bg-[#FF6B6B]/35 top-[35%] left-[80%]" duration={7} delay={2.5} />
+        <FloatBubble className="w-20 h-20 bg-[#FFD93D]/30 top-[55%] left-[40%]" duration={9.5} delay={0.3} />
+        <FloatBubble className="w-8 h-8 bg-[#FFB6C1]/55 top-[90%] right-[30%]" duration={6} delay={1.8} />
+        <FloatBubble className="w-12 h-12 bg-[#FF8C69]/45 top-[85%] left-[20%]" duration={7} delay={2.2} />
+
+        {/* 光点粒子 */}
+        <GlowDot className="w-3 h-3 bg-[#FFD700] top-[12%] left-[25%]" duration={3} delay={0} />
+        <GlowDot className="w-2 h-2 bg-[#FF6B6B] top-[18%] right-[30%]" duration={4} delay={0.5} />
+        <GlowDot className="w-3 h-3 bg-[#FFA500] top-[30%] left-[70%]" duration={3.5} delay={1} />
+        <GlowDot className="w-2 h-2 bg-[#FFD93D] top-[45%] left-[10%]" duration={4.5} delay={1.5} />
+        <GlowDot className="w-3 h-3 bg-[#FFB6C1] top-[55%] right-[25%]" duration={3} delay={2} />
+        <GlowDot className="w-2 h-2 bg-[#87CEEB] top-[60%] left-[55%]" duration={3.8} delay={0.8} />
+        <GlowDot className="w-3 h-3 bg-[#FF8C69] top-[75%] left-[35%]" duration={4.2} delay={1.3} />
+        <GlowDot className="w-2 h-2 bg-[#FFD700] top-[82%] right-[40%]" duration={3.2} delay={2.5} />
+        <GlowDot className="w-3 h-3 bg-[#FF6B6B] top-[20%] left-[45%]" duration={3.6} delay={0.3} />
+        <GlowDot className="w-2 h-2 bg-[#FFA500] top-[38%] right-[5%]" duration={4} delay={1.8} />
+        <GlowDot className="w-3 h-3 bg-[#FFB6C1] top-[68%] left-[75%]" duration={3.4} delay={0.6} />
+        <GlowDot className="w-2 h-2 bg-[#FFD93D] top-[48%] left-[50%]" duration={4.3} delay={2.1} />
+        <GlowDot className="w-3 h-3 bg-[#FFD700] top-[88%] left-[65%]" duration={3.1} delay={1.1} />
+        <GlowDot className="w-2 h-2 bg-[#FF6B6B] top-[8%] left-[85%]" duration={3.9} delay={0.9} />
+
+        {/* 云朵 */}
+        <CloudShape className="top-[5%] left-[2%]" scale={1.2} duration={25} />
+        <CloudShape className="top-[8%] right-[5%]" scale={1.0} duration={30} delay={5} />
+        <CloudShape className="top-[3%] left-[40%]" scale={0.8} duration={28} delay={10} />
+        <CloudShape className="top-[12%] left-[70%]" scale={1.1} duration={22} delay={3} />
+        <CloudShape className="top-[6%] left-[25%]" scale={0.7} duration={35} delay={8} />
       </div>
 
       {/* 内容层 */}
@@ -239,6 +267,51 @@ function App() {
             <p className="mt-10 text-white/50 text-sm">感谢访问 </p>
           </Card>
         </section>
+      </div>
+    </div>
+  );
+}
+
+/* CSS 动画漂浮球体 */
+function FloatBubble({ className, duration = 6, delay = 0 }: { className: string; duration?: number; delay?: number }) {
+  return (
+    <div
+      className={`absolute rounded-full blur-[1px] float-bubble ${className}`}
+      style={{
+        animation: `floatBubble ${duration}s ease-in-out ${delay}s infinite`,
+        filter: 'blur(1px)',
+      }}
+    />
+  );
+}
+
+/* 发光光点 */
+function GlowDot({ className, duration = 3, delay = 0 }: { className: string; duration?: number; delay?: number }) {
+  return (
+    <div
+      className={`absolute rounded-full shadow-[0_0_12px_4px_currentColor] ${className}`}
+      style={{
+        animation: `glowFloat ${duration}s ease-in-out ${delay}s infinite`,
+      }}
+    />
+  );
+}
+
+/* 云朵形状 */
+function CloudShape({ className, scale = 1, duration = 25, delay = 0 }: { className: string; scale?: number; duration?: number; delay?: number }) {
+  return (
+    <div
+      className={`absolute ${className}`}
+      style={{
+        transform: `scale(${scale})`,
+        animation: `cloudDrift ${duration}s linear ${delay}s infinite`,
+      }}
+    >
+      <div className="relative">
+        <div className="w-24 h-16 bg-white/70 rounded-full absolute" />
+        <div className="w-16 h-12 bg-white/60 rounded-full absolute left-14 top-1" />
+        <div className="w-18 h-14 bg-white/65 rounded-full absolute -left-4 top-2" />
+        <div className="w-12 h-10 bg-white/50 rounded-full absolute left-6 -top-3" />
       </div>
     </div>
   );
