@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CZCHENG.ME // NEURAL_LINK</title>
+    <title>陈同学的个人空间 ☀️</title>
     <style>
         :root {
-            --cyan: #00f3ff;
-            --pink: #ff00ea;
-            --dark: #05050f;
-            --darker: #020205;
-            --text-main: #e0e0e0;
+            /* 阳光明媚的渐变色 */
+            --bg-gradient: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            --sun-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.6);
+            --text-main: #2d3436;
+            --text-light: #636e72;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
         }
 
         * {
@@ -20,328 +23,310 @@
         }
 
         body {
-            background-color: var(--darker);
+            /* 使用一张阳光明媚的海滩或天空风景图作为背景，或者使用明媚的CSS渐变 */
+            background-image: url('https://images.unsplash.com/photo-1499002238440-d264edd596ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-main);
-            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
-            overflow-x: hidden;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            min-height: 100vh;
         }
-
-        .scanlines {
+        
+        .overlay {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 999;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* 一层温暖的发光遮罩 */
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,236,210,0.6) 100%);
+            backdrop-filter: blur(12px);
+            z-index: 0;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1024px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 4vh 20px;
             position: relative;
             z-index: 10;
         }
 
-        /* 顶部导航区 */
+        /* 顶部导航，毛玻璃质感 */
         header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 2px solid var(--cyan);
-            padding-bottom: 15px;
+            align-items: center;
+            padding: 20px 25px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
             margin-bottom: 50px;
+            animation: slideDown 0.8s ease-out;
         }
 
-        .sys-status {
-            font-size: 0.8rem;
-            color: var(--cyan);
-            text-transform: uppercase;
-            animation: pulse 2s infinite;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--sun-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
 
-        /* 英雄区：故障文字名字 */
+        /* 英雄区：个人介绍 */
         .hero {
-            margin: 80px 0;
+            text-align: center;
+            margin: 60px 0 80px;
+            animation: fadeIn 1s ease-out 0.3s both;
         }
 
-        .glitch-text {
-            font-size: 4.5rem;
-            font-weight: 900;
-            position: relative;
-            display: inline-block;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-            text-transform: uppercase;
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: var(--sun-gradient);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 10px 25px rgba(253, 160, 133, 0.4);
+            border: 5px solid white;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+        .avatar:hover {
+            transform: scale(1.1) rotate(10deg);
         }
 
-        .glitch-text::before {
-            left: 3px;
-            text-shadow: -2px 0 var(--pink);
-            animation: glitch-1 2s infinite linear alternate-reverse;
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #2d3436;
         }
 
-        .glitch-text::after {
-            left: -3px;
-            text-shadow: 2px 0 var(--cyan);
-            animation: glitch-2 3s infinite linear alternate-reverse;
-        }
-
-        h2.subtitle {
-            color: var(--cyan);
+        .subtitle {
             font-size: 1.2rem;
-            margin-top: 20px;
-            letter-spacing: 2px;
+            color: #4a5568;
+            margin-bottom: 40px;
+            font-weight: 500;
         }
 
-        /* 赛博朋克风格卡片 */
+        /* 按钮设计 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--sun-gradient);
+            color: white;
+            box-shadow: 0 6px 20px rgba(253, 160, 133, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(253, 160, 133, 0.6);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-main);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,1);
+        }
+
+        .btn-outline:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        /* BENTO 风格卡片网格 - UI趋势 */
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            animation: fadeIn 1s ease-out 0.6s both;
         }
 
         .card {
-            background: rgba(0, 243, 255, 0.03);
-            border: 1px solid rgba(0, 243, 255, 0.15);
-            padding: 30px;
-            position: relative;
-            transition: all 0.3s;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) inset;
-            transform: translateY(-5px);
-        }
-
-        /* 卡片切角设计 */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 10px; height: 10px;
-            border-top: 2px solid var(--cyan);
-            border-left: 2px solid var(--cyan);
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; right: 0; width: 10px; height: 10px;
-            border-bottom: 2px solid var(--pink);
-            border-right: 2px solid var(--pink);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
         }
 
         .card h3 {
-            color: var(--pink);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-        }
-
-        .card h3::before {
-            content: '>';
-            margin-right: 10px;
-            color: var(--text-main);
+            gap: 10px;
+            color: #2d3436;
         }
 
         .card p, .card ul {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #ccc;
+            color: #4a5568;
+            font-size: 1.05rem;
         }
 
         .card ul {
             list-style: none;
-            margin-top: 10px;
         }
 
         .card ul li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .card ul li::before {
-            content: '[+]';
-            position: absolute;
-            left: 0;
-            color: var(--cyan);
-            font-size: 0.8em;
-            top: 3px;
+            content: '☀️';
+            font-size: 0.9em;
         }
 
-        /* 终端打字效果按钮 */
-        .btn-group {
-            margin-top: 50px;
+        /* 技能标签组合 */
+        .tag-group {
             display: flex;
-            gap: 20px;
             flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .cy-btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: transparent;
-            color: var(--cyan);
-            border: 1px solid var(--cyan);
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+        .tag {
+            background: rgba(255,255,255,0.85);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #d35400; /* 日落橘色 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: all 0.2s ease;
+        }
+        
+        .tag:hover {
+            transform: scale(1.05);
+            background: white;
+            color: #e67e22;
         }
 
-        .cy-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--cyan);
-            opacity: 0.2;
-            transition: all 0.3s;
+        /* 动画设定 */
+        @keyframes slideDown {
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        .cy-btn:hover::before {
-            left: 0;
-        }
-
-        .cy-btn:hover {
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
-            color: #fff;
-        }
-
-        .cy-btn.primary {
-            background: rgba(0, 243, 255, 0.1);
-        }
-
-        .cy-btn.pink {
-            color: var(--pink);
-            border-color: var(--pink);
-        }
-        .cy-btn.pink::before { background: var(--pink); }
-        .cy-btn.pink:hover { box-shadow: 0 0 15px rgba(255, 0, 234, 0.4); }
-
-        /* 动画 */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes glitch-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
-            100% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -1px); }
-        }
-
-        @keyframes glitch-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
-            40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
-            60% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 1px); }
-            80% { clip-path: inset(5% 0 80% 0); transform: translate(2px, -1px); }
-            100% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 2px); }
+        @keyframes fadeIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            .glitch-text { font-size: 2.8rem; }
+            h1 { font-size: 2.4rem; }
+            .subtitle { font-size: 1rem; }
             .btn-group { flex-direction: column; }
-            .cy-btn { text-align: center; }
+            .avatar { width: 110px; height: 110px; font-size: 3rem; }
+            header { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <div class="scanlines"></div>
+    <!-- 模糊的发光温暖背景层 -->
+    <div class="overlay"></div>
 
     <div class="container">
+        <!-- 导航区 (毛玻璃质感) -->
         <header>
-            <div style="font-weight: bold; letter-spacing: 2px; color: #fff;">CZCHENG<span style="color: var(--cyan)">.ME</span></div>
-            <div class="sys-status">SYS.OP // NEURAL_LINK_ACTIVE</div>
+            <div class="logo">CZCHENG.ME 🌻</div>
+            <div style="color: var(--text-light); font-weight: 600; background: white; padding: 6px 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                Today is a good day. ✨
+            </div>
         </header>
 
+        <!-- 个人主页核心信息区 -->
         <section class="hero">
-            <h1 class="glitch-text" data-text="HELLO, I'M CHENG">HELLO, I'M CHENG</h1>
-            <h2 class="subtitle">SOFTWARE ENGINEER // INFRA & AI STREAMING</h2>
+            <div class="avatar" title="点我一下会有弹跳动画哦~">👨‍💻</div>
+            <h1>你好，我是陈同学！</h1>
+            <p class="subtitle">🎉 广东海洋大学软件工程 · 后端开发 / 流处理 / AI探索者</p>
             
             <div class="btn-group">
-                <a href="https://github.com/happiness-cheng" class="cy-btn primary" target="_blank">INIT_GITHUB_LINK()</a>
-                <a href="mailto:contact@czcheng.me" class="cy-btn pink">CALL_SYS_ADMIN()</a>
+                <a href="https://github.com/happiness-cheng" class="btn btn-primary" target="_blank">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    访问我的 GitHub
+                </a>
+                <a href="mailto:contact@czcheng.me" class="btn btn-outline">
+                    ✉️ 给我发邮件
+                </a>
             </div>
         </section>
 
-        <!-- 卡片网格区 -->
+        <!-- 类似Bento格子的内容卡片区 -->
         <section class="grid">
             <div class="card">
-                <h3>MODULE://ABOUT_ME</h3>
-                <p>广东海洋大学软件工程专业在读。热爱技术探索，专注于后端基础设施 (Infra)、流处理 (Streaming) 与 AI 工程化落地。沉迷于终端与赛博代码世界。</p>
+                <h3>📖 关于我</h3>
+                <p>热爱生活，对这个世界充满好奇心！如果你也对架构设计、分布式系统或者最新的 AI 玩法感兴趣，欢迎一起交流。相信代码不仅能改变世界，还能记录生活的美好，每一天都值得期待~</p>
             </div>
             
             <div class="card">
-                <h3>SYS://TECH_STACK</h3>
-                <ul>
-                    <li><strong>Languages:</strong> Java, Python, TypeScript</li>
-                    <li><strong>Backend & Infra:</strong> Spring Boot, Node.js, Docker, K8s</li>
-                    <li><strong>Streaming:</strong> Kafka, Flink</li>
-                    <li><strong>AI:</strong> LLM Agents, RAG, Prompt Engineering</li>
-                </ul>
+                <h3>🛠️ 我的技能森林</h3>
+                <div class="tag-group">
+                    <span class="tag">Java & Spring Boot</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">Kafka & Flink</span>
+                    <span class="tag">Docker & K8s</span>
+                    <span class="tag">LLM Agents</span>
+                </div>
             </div>
             
             <div class="card">
-                <h3>DIR://PROJECTS</h3>
+                <h3>🚀 近期折腾</h3>
                 <ul>
-                    <li><strong style="color: var(--cyan)">Project_01:</strong> 分布式实时流处理引擎</li>
-                    <li><strong style="color: var(--cyan)">Project_02:</strong> 基于大模型的智能 Agent 平台</li>
-                    <li><strong style="color: var(--cyan)">Project_03:</strong> FUI 赛博朋克极简个人主页</li>
+                    <li><strong>分布式流处理引擎</strong> - 让数据轻快流动起来！</li>
+                    <li><strong>AI 智能体平台</strong> - 探索大模型的工程化落地</li>
+                    <li><strong>明媚纯粹的主页</strong> - 记录每一天的阳光与代码</li>
                 </ul>
             </div>
 
             <div class="card">
-                <h3>LOG://RECENT_ACTIVITY</h3>
-                <p>Status: <span style="color: #0f0;">Online</span><br>
-                   Location: GDOU Base<br>
-                   Current Task: Deep diving into Next-gen Infra & AI solutions. Stay tuned for systemic upgrades.
+                <h3>🌱 当前状态</h3>
+                <p>📍 <strong>定位：</strong> 广东海洋大学<br><br>
+                   💡 <strong>聚焦：</strong> 云原生与 Agent 先沿技术<br><br>
+                   🎧 <strong>背景音：</strong> 正在听轻快民谣配上敲键盘的声音
                 </p>
             </div>
         </section>
     </div>
-
-    <!-- 终端打字机脚本 -->
-    <script>
-        const terminalText = document.querySelector('.sys-status');
-        let text = terminalText.innerText;
-        terminalText.innerText = '';
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < text.length) {
-                terminalText.innerText += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 40 + Math.random() * 60); // 随机打字延迟，更真实
-            } else {
-                setInterval(() => {
-                    terminalText.style.opacity = terminalText.style.opacity === '0' ? '1' : '0';
-                }, 800); // 闪烁光标效果
-            }
-        }
-        
-        setTimeout(typeWriter, 600);
-    </script>
 </body>
 </html>
