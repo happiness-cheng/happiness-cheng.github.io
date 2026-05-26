@@ -1,1 +1,347 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Vite + React + TS</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CZCHENG.ME // NEURAL_LINK</title>
+    <style>
+        :root {
+            --cyan: #00f3ff;
+            --pink: #ff00ea;
+            --dark: #05050f;
+            --darker: #020205;
+            --text-main: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 顶部导航区 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--cyan);
+            padding-bottom: 15px;
+            margin-bottom: 50px;
+        }
+
+        .sys-status {
+            font-size: 0.8rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        /* 英雄区：故障文字名字 */
+        .hero {
+            margin: 80px 0;
+        }
+
+        .glitch-text {
+            font-size: 4.5rem;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        .glitch-text::before {
+            left: 3px;
+            text-shadow: -2px 0 var(--pink);
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -3px;
+            text-shadow: 2px 0 var(--cyan);
+            animation: glitch-2 3s infinite linear alternate-reverse;
+        }
+
+        h2.subtitle {
+            color: var(--cyan);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* 赛博朋克风格卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(0, 243, 255, 0.03);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) inset;
+            transform: translateY(-5px);
+        }
+
+        /* 卡片切角设计 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 10px; height: 10px;
+            border-top: 2px solid var(--cyan);
+            border-left: 2px solid var(--cyan);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0; width: 10px; height: 10px;
+            border-bottom: 2px solid var(--pink);
+            border-right: 2px solid var(--pink);
+        }
+
+        .card h3 {
+            color: var(--pink);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3::before {
+            content: '>';
+            margin-right: 10px;
+            color: var(--text-main);
+        }
+
+        .card p, .card ul {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .card ul li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '[+]';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-size: 0.8em;
+            top: 3px;
+        }
+
+        /* 终端打字效果按钮 */
+        .btn-group {
+            margin-top: 50px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cy-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .cy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--cyan);
+            opacity: 0.2;
+            transition: all 0.3s;
+        }
+
+        .cy-btn:hover::before {
+            left: 0;
+        }
+
+        .cy-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            color: #fff;
+        }
+
+        .cy-btn.primary {
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .cy-btn.pink {
+            color: var(--pink);
+            border-color: var(--pink);
+        }
+        .cy-btn.pink::before { background: var(--pink); }
+        .cy-btn.pink:hover { box-shadow: 0 0 15px rgba(255, 0, 234, 0.4); }
+
+        /* 动画 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes glitch-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
+            100% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -1px); }
+        }
+
+        @keyframes glitch-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
+            60% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 1px); }
+            80% { clip-path: inset(5% 0 80% 0); transform: translate(2px, -1px); }
+            100% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 2px); }
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .glitch-text { font-size: 2.8rem; }
+            .btn-group { flex-direction: column; }
+            .cy-btn { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <header>
+            <div style="font-weight: bold; letter-spacing: 2px; color: #fff;">CZCHENG<span style="color: var(--cyan)">.ME</span></div>
+            <div class="sys-status">SYS.OP // NEURAL_LINK_ACTIVE</div>
+        </header>
+
+        <section class="hero">
+            <h1 class="glitch-text" data-text="HELLO, I'M CHENG">HELLO, I'M CHENG</h1>
+            <h2 class="subtitle">SOFTWARE ENGINEER // INFRA & AI STREAMING</h2>
+            
+            <div class="btn-group">
+                <a href="https://github.com/happiness-cheng" class="cy-btn primary" target="_blank">INIT_GITHUB_LINK()</a>
+                <a href="mailto:contact@czcheng.me" class="cy-btn pink">CALL_SYS_ADMIN()</a>
+            </div>
+        </section>
+
+        <!-- 卡片网格区 -->
+        <section class="grid">
+            <div class="card">
+                <h3>MODULE://ABOUT_ME</h3>
+                <p>广东海洋大学软件工程专业在读。热爱技术探索，专注于后端基础设施 (Infra)、流处理 (Streaming) 与 AI 工程化落地。沉迷于终端与赛博代码世界。</p>
+            </div>
+            
+            <div class="card">
+                <h3>SYS://TECH_STACK</h3>
+                <ul>
+                    <li><strong>Languages:</strong> Java, Python, TypeScript</li>
+                    <li><strong>Backend & Infra:</strong> Spring Boot, Node.js, Docker, K8s</li>
+                    <li><strong>Streaming:</strong> Kafka, Flink</li>
+                    <li><strong>AI:</strong> LLM Agents, RAG, Prompt Engineering</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>DIR://PROJECTS</h3>
+                <ul>
+                    <li><strong style="color: var(--cyan)">Project_01:</strong> 分布式实时流处理引擎</li>
+                    <li><strong style="color: var(--cyan)">Project_02:</strong> 基于大模型的智能 Agent 平台</li>
+                    <li><strong style="color: var(--cyan)">Project_03:</strong> FUI 赛博朋克极简个人主页</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>LOG://RECENT_ACTIVITY</h3>
+                <p>Status: <span style="color: #0f0;">Online</span><br>
+                   Location: GDOU Base<br>
+                   Current Task: Deep diving into Next-gen Infra & AI solutions. Stay tuned for systemic upgrades.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- 终端打字机脚本 -->
+    <script>
+        const terminalText = document.querySelector('.sys-status');
+        let text = terminalText.innerText;
+        terminalText.innerText = '';
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                terminalText.innerText += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 40 + Math.random() * 60); // 随机打字延迟，更真实
+            } else {
+                setInterval(() => {
+                    terminalText.style.opacity = terminalText.style.opacity === '0' ? '1' : '0';
+                }, 800); // 闪烁光标效果
+            }
+        }
+        
+        setTimeout(typeWriter, 600);
+    </script>
+</body>
+</html>
